@@ -1,41 +1,26 @@
-/* ======================================================
-   ANDROMEDA THEME JS
-   Dev  : LevviCode
-====================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.classList.add("andromeda-active");
 
-(() => {
-  const STORAGE_KEY = 'andromeda-theme'
+  document.querySelectorAll(
+    "button,.btn,.button"
+  ).forEach(b => b.classList.add("andromeda-btn"));
 
-  const enableDark = () => {
-    document.body.classList.add('dark')
-    localStorage.setItem(STORAGE_KEY, 'dark')
+  if (!document.querySelector(".andromeda-toggle")) {
+    const t = document.createElement("div");
+    t.className = "andromeda-toggle";
+    t.innerHTML = "🌙";
+    document.body.appendChild(t);
+
+    t.onclick = () => {
+      document.body.classList.toggle("dark");
+      localStorage.setItem(
+        "andromeda-theme",
+        document.body.classList.contains("dark") ? "dark" : "light"
+      );
+    };
   }
 
-  const disableDark = () => {
-    document.body.classList.remove('dark')
-    localStorage.setItem(STORAGE_KEY, 'light')
+  if (localStorage.getItem("andromeda-theme") === "dark") {
+    document.body.classList.add("dark");
   }
-
-  // Load theme
-  if (localStorage.getItem(STORAGE_KEY) === 'dark') {
-    enableDark()
-  }
-
-  // Toggle global
-  window.toggleAndromeda = () => {
-    document.body.classList.contains('dark')
-      ? disableDark()
-      : enableDark()
-  }
-
-  // Auto button if not exist
-  document.addEventListener('DOMContentLoaded', () => {
-    if (!document.querySelector('.andromeda-toggle')) {
-      const btn = document.createElement('div')
-      btn.className = 'andromeda-toggle'
-      btn.innerHTML = '<i class="fa-solid fa-moon"></i>'
-      btn.onclick = toggleAndromeda
-      document.body.appendChild(btn)
-    }
-  })
-})()
+});
