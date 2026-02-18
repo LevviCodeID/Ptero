@@ -1,5 +1,5 @@
 /* ======================================================
-   ANDROMEDA THEME
+   ANDROMEDA THEME – FULL OVERRIDE
    Dev  : LevviCode
    Tele : https://t.me/lepicode
 ====================================================== */
@@ -9,138 +9,142 @@
   --secondary: #8b5cf6;
   --accent: #22d3ee;
 
-  --bg-dark: #0b1020;
-  --bg-panel: #111827;
-  --bg-glass: rgba(17, 24, 39, 0.75);
+  --bg-main: #020617;
+  --bg-panel: #0b1020;
+  --bg-glass: rgba(15, 23, 42, 0.75);
 
   --text-main: #e5e7eb;
   --text-muted: #9ca3af;
 
-  --border: rgba(255, 255, 255, 0.08);
+  --border: rgba(255,255,255,.08);
 }
 
-/* ================= DARK MODE ================= */
-
-body.dark {
-  background: radial-gradient(
-    circle at top,
-    #111827,
-    #020617
-  );
-  color: var(--text-main);
+html, body {
+  background: radial-gradient(circle at top, #111827, #020617) !important;
+  color: var(--text-main) !important;
 }
 
-/* ================= NAVBAR ================= */
+/* ===== NAVBAR ===== */
 
-.navbar,
-.andromeda-navbar {
+nav, header, .navbar {
   background: var(--bg-glass) !important;
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--border);
 }
 
-/* ================= SIDEBAR ================= */
+/* ===== SIDEBAR ===== */
 
-.sidebar {
-  background: linear-gradient(
-    180deg,
-    #020617,
-    #020617,
-    #0b1020
-  );
+aside, .sidebar {
+  background: linear-gradient(180deg,#020617,#0b1020) !important;
   border-right: 1px solid var(--border);
 }
 
-/* ================= CARDS ================= */
+/* ===== CARDS / PANELS ===== */
 
-.card,
-.box,
-.panel,
-.content-box {
-  background: var(--bg-panel);
+.card, .box, .panel, .content-box, .well {
+  background: var(--bg-panel) !important;
   border-radius: 18px !important;
   border: 1px solid var(--border);
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 20px 40px rgba(0,0,0,.45);
 }
 
-/* ================= BUTTON ================= */
+/* ===== TABLE ===== */
 
-.andromeda-btn {
-  background: linear-gradient(
-    135deg,
-    var(--primary),
-    var(--secondary)
-  );
-  color: #fff;
-  padding: 0.6rem 1.5rem;
-  border-radius: 9999px;
+table {
+  background: var(--bg-panel) !important;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+thead {
+  background: #020617 !important;
+}
+
+tbody tr:hover {
+  background: rgba(99,102,241,.08) !important;
+}
+
+/* ===== FORM ===== */
+
+input, select, textarea {
+  background: #020617 !important;
+  color: var(--text-main) !important;
+  border-radius: 12px !important;
+  border: 1px solid var(--border) !important;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 2px rgba(99,102,241,.3);
+}
+
+/* ===== BUTTON ===== */
+
+button, .btn, .button {
+  background: linear-gradient(135deg,var(--primary),var(--secondary)) !important;
+  color: #fff !important;
+  border-radius: 9999px !important;
+  border: none !important;
+  padding: .6rem 1.4rem;
   font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  box-shadow:
-    0 15px 35px rgba(99, 102, 241, 0.45);
+  transition: .25s;
+  box-shadow: 0 15px 35px rgba(99,102,241,.45);
 }
 
-.andromeda-btn:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow:
-    0 25px 55px rgba(139, 92, 246, 0.55);
+button:hover, .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 25px 55px rgba(139,92,246,.55);
 }
 
-/* ================= STATS CARD ================= */
+/* ===== DROPDOWN / MODAL ===== */
 
-.andromeda-stat {
-  background: linear-gradient(
-    135deg,
-    #6366f1,
-    #22d3ee
-  );
-  border-radius: 20px;
-  padding: 1.5rem;
-  color: #fff;
-  box-shadow:
-    0 30px 60px rgba(99, 102, 241, 0.4);
+.dropdown-menu, .modal-content {
+  background: var(--bg-panel) !important;
+  border-radius: 16px;
+  border: 1px solid var(--border);
 }
 
-/* ================= TEXT ================= */
+/* ===== TEXT ===== */
 
 .text-muted {
   color: var(--text-muted) !important;
 }
 
-/* ================= FLOAT TOGGLE ================= */
+/* ===== PROGRESS ===== */
+
+.progress {
+  background: #020617 !important;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg,var(--primary),var(--accent)) !important;
+}
+
+/* ===== FLOAT TOGGLE ===== */
 
 .andromeda-toggle {
   position: fixed;
   right: 22px;
   bottom: 22px;
-  z-index: 9999;
-  width: 52px;
-  height: 52px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
-  background: linear-gradient(
-    135deg,
-    var(--primary),
-    var(--secondary)
-  );
-  color: white;
+  background: linear-gradient(135deg,var(--primary),var(--secondary));
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
   cursor: pointer;
-  box-shadow:
-    0 20px 45px rgba(99, 102, 241, 0.55);
-  transition: all 0.25s ease;
+  z-index: 9999;
+  box-shadow: 0 20px 45px rgba(99,102,241,.55);
+  transition: .25s;
 }
 
 .andromeda-toggle:hover {
   transform: scale(1.12) rotate(12deg);
 }
 
-/* ================= SCROLLBAR ================= */
+/* ===== SCROLLBAR ===== */
 
 ::-webkit-scrollbar {
   width: 8px;
@@ -151,10 +155,6 @@ body.dark {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    180deg,
-    var(--primary),
-    var(--secondary)
-  );
+  background: linear-gradient(180deg,var(--primary),var(--secondary));
   border-radius: 9999px;
 }
