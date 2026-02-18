@@ -1,71 +1,84 @@
 #!/bin/bash
+# Script instalasi tema Stellar untuk Pterodactyl
+# Dijalankan dengan: curl -sL https://raw.githubusercontent.com/username/repo/main/installer.sh | bash
 
-IP="$1"
-PASSWORD="$2"
+# Warna output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
 
-if [ -z "$IP" ] || [ -z "$PASSWORD" ]; then
-    echo "Parameter kurang!"
+echo -e "${YELLOW}Memulai instalasi tema Stellar...${NC}"
+
+# Cek root
+if [[ $EUID -ne 0 ]]; then
+   echo -e "${RED}Script ini harus dijalankan sebagai root!${NC}"
+   exit 1
+fi
+
+# Cek direktori Pterodactyl
+if [ ! -d "/var/www/pterodactyl" ]; then
+    echo -e "${RED}Direktori /var/www/pterodactyl tidak ditemukan!${NC}"
+    echo -e "${YELLOW}Pastikan Pterodactyl sudah terinstall di server ini.${NC}"
     exit 1
 fi
 
-sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no root@$IP << 'EOF'
+# Install dependencies jika perlu
+echo -e "${YELLOW}Memeriksa dependencies...${NC}"
+apt update -qq
+apt install -y curl wget unzip zip -qq
 
-PANEL_DIR="/var/www/pterodactyl"
-TMP_DIR="/tmp/stellar_install"
-ZIP_URL="https://raw.githubusercontent.com/LevviCodeID/Ptero/refs/heads/main/Tema/stellar.zip"
+# Backup sebelum instalasi
+BACKUP_DIR="/root/backup-pterodactyl-$(date +%Y%m%d-%H%M%S)"
+echo -e "${YELLOW}Membuat backup di $BACKUP_DIR...${NC}"
+cp -r /var/www/pterodactyl $BACKUP_DIR
 
-echo "=== START INSTALL STELLAR THEME ==="
+# Download tema
+echo -e "${YELLOW}Mendownload tema Stellar...${NC}"
+cd /tmp
+wget -q -O stellar.zip https://raw.githubusercontent.com/LevviCodeID/Ptero/refs/heads/main/Tema/stellar.zip
 
-if [ ! -d "$PANEL_DIR" ]; then
-    echo "PANEL_NOT_FOUND"
+if [ $? -ne 0 ]; then
+    echo -e "${RED}Gagal mendownload tema! Periksa koneksi internet.${NC}"
     exit 1
 fi
 
-rm -rf $TMP_DIR
-mkdir -p $TMP_DIR
-
-echo "Downloading stellar.zip..."
-curl -sL $ZIP_URL -o $TMP_DIR/stellar.zip || { echo "DOWNLOAD_FAILED"; exit 1; }
-
-echo "Extracting..."
-unzip -o $TMP_DIR/stellar.zip -d $TMP_DIR || { echo "UNZIP_FAILED"; exit 1; }
-
-if [ ! -d "$TMP_DIR/pterodactyl" ]; then
-    echo "ZIP_STRUCTURE_INVALID"
+# Ekstrak
+echo -e "${YELLOW}Mengekstrak file...${NC}"
+unzip -q -o stellar.zip -d stellar_temp
+if [ $? -ne 0 ]; then
+    echo -e "${RED}Gagal mengekstrak file zip!${NC}"
     exit 1
 fi
 
-echo "Backing up panel..."
-cp -r $PANEL_DIR ${PANEL_DIR}_backup_$(date +%Y%m%d%H%M%S)
+# Pindah ke direktori pterodactyl
+cd /var/www/pterodactyl
 
-echo "Copy theme files..."
-cp -r $TMP_DIR/pterodactyl/* $PANEL_DIR/
+# Backup .env
+cp .env .env.backup
 
-cd $PANEL_DIR || { echo "CD_FAIL"; exit 1; }
-
-echo "Installing dependencies (composer)..."
-composer install --no-dev --optimize-autoloader
-
-echo "Running Laravel migrations..."
-php artisan migrate --force
-
-echo "Building assets..."
-npm install --silent
-npm run build
-
-echo "Clearing caches..."
+# Hapus cache
+echo -e "${YELLOW}Membersihkan cache...${NC}"
 php artisan view:clear
-php artisan cache:clear
 php artisan config:clear
 
-echo "Fixing permissions..."
-chown -R www-data:www-data $PANEL_DIR
-chmod -R 755 storage bootstrap/cache
+# Copy file tema (asumsi struktur zip sesuai standar: public & resources)
+echo -e "${YELLOW}Memindahkan file tema...${NC}"
+cp -r /tmp/stellar_temp/* /var/www/pterodactyl/
 
-echo "Restarting services..."
-systemctl restart nginx
-systemctl restart php8.1-fpm
+# Set permission
+echo -e "${YELLOW}Mengatur permission...${NC}"
+chown -R www-data:www-data /var/www/pterodactyl
+chmod -R 755 /var/www/pterodactyl/storage
+chmod -R 755 /var/www/pterodactyl/bootstrap/cache
 
-echo "STELLAR_INSTALL_SUCCESS"
+# Optimasi
+echo -e "${YELLOW}Optimasi cache...${NC}"
+php artisan optimize
+php artisan view:cache
 
-EOF
+# Bersihkan temporary files
+rm -rf /tmp/stellar.zip /tmp/stellar_temp
+
+echo -e "${GREEN}✅ Instalasi tema Stellar selesai!${NC}"
+echo -e "${GREEN}Silakan cek panel Anda: http://$(curl -s ifconfig.me)${NC}"
