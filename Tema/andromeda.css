@@ -1,171 +1,416 @@
+/* andromeda.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 :root {
-  --primary: #6d5dfc;
-  --primary-dark: #5b4ae6;
-  --accent: #a29bfe;
-
-  --bg-main: #f4f6fb;
-  --bg-card: #ffffff;
-  --bg-sidebar: #0b1020;
-  --bg-sidebar-hover: rgba(109,93,252,.18);
-
-  --text-main: #1f2937;
-  --text-muted: #6b7280;
-  --text-sidebar: #c7d2fe;
-
-  --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 18px;
-
-  --shadow-sm: 0 6px 16px rgba(0,0,0,.08);
-  --shadow-md: 0 14px 40px rgba(0,0,0,.12);
+    --primary: #3b82f6;
+    --primary-light: #60a5fa;
+    --primary-dark: #2563eb;
+    --primary-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    --bg-light: #f9fafb;
+    --bg-dark: #111827;
+    --surface-light: #ffffff;
+    --surface-dark: #1f2937;
+    --text-light: #1f2937;
+    --text-dark: #f3f4f6;
+    --border-light: #e5e7eb;
+    --border-dark: #374151;
+    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-/* RESET */
+* {
+    font-family: 'Inter', sans-serif;
+}
+
 body {
-  background: var(--bg-main) !important;
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  color: var(--text-main);
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    transition: background-color 0.3s, color 0.3s;
 }
 
-/* ================= HEADER ================= */
-nav.navbar,
-.header {
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
-  border: none !important;
-  min-height: 78px;
-  box-shadow: var(--shadow-md);
+body.dark {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
 }
 
-nav.navbar * {
-  color: #fff !important;
-  font-weight: 600;
+/* ===== DARK MODE UTILITY ===== */
+body.dark .card,
+body.dark .box,
+body.dark .panel,
+body.dark .table,
+body.dark .modal-content {
+    background-color: var(--surface-dark);
+    border-color: var(--border-dark);
 }
 
-/* ================= SIDEBAR ================= */
+body.dark .navbar,
+body.dark .sidebar {
+    background-color: var(--surface-dark);
+    border-color: var(--border-dark);
+}
+
+body.dark .text-muted {
+    color: #9ca3af !important;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    background: var(--primary-gradient);
+    color: white;
+    border-bottom: none;
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+}
+
+body.dark .navbar {
+    background: var(--surface-dark);
+    border-bottom: 1px solid var(--border-dark);
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: white !important;
+}
+
+body.dark .navbar-brand,
+body.dark .navbar-nav .nav-link {
+    color: var(--text-dark) !important;
+}
+
+/* ===== SIDEBAR ===== */
 .sidebar {
-  background: var(--bg-sidebar) !important;
-  border-right: none;
+    background-color: var(--surface-light);
+    border-right: 1px solid var(--border-light);
+    transition: all 0.3s;
 }
 
-.sidebar a {
-  color: var(--text-sidebar) !important;
-  margin: 6px 10px;
-  padding: 12px 14px;
-  border-radius: var(--radius-sm);
-  transition: all .2s ease;
+body.dark .sidebar {
+    background-color: var(--surface-dark);
+    border-right-color: var(--border-dark);
 }
 
-.sidebar a:hover,
-.sidebar a.active {
-  background: var(--bg-sidebar-hover) !important;
-  color: #fff !important;
-  transform: translateX(4px);
+.sidebar .nav-link {
+    color: var(--text-light);
+    border-radius: 0.5rem;
+    margin: 0.25rem 0.5rem;
+    padding: 0.75rem 1rem;
+    transition: all 0.2s;
 }
 
-/* ================= PAGE TITLE ================= */
-.page-title,
-h1.page-title {
-  font-size: 28px;
-  font-weight: 800;
-  margin-bottom: 20px;
+body.dark .sidebar .nav-link {
+    color: var(--text-dark);
 }
 
-/* ================= CARD ================= */
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    background: var(--primary-gradient);
+    color: white !important;
+    transform: translateX(5px);
+}
+
+/* ===== CARD MODERN ===== */
 .card,
-.box,
-.panel {
-  background: var(--bg-card) !important;
-  border-radius: var(--radius-lg);
-  border: none !important;
-  box-shadow: var(--shadow-sm);
-  padding: 20px;
+.panel,
+.box {
+    background: var(--surface-light);
+    border: none;
+    border-radius: 1rem;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s;
 }
 
-/* STAT CARD */
-.card h2,
-.card h3 {
-  font-weight: 800;
+body.dark .card,
+body.dark .panel,
+body.dark .box {
+    background: var(--surface-dark);
 }
 
-.card small {
-  color: var(--text-muted);
+.card:hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-2px);
 }
 
-/* ================= BUTTON ================= */
-button,
-.btn {
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
-  border: none !important;
-  border-radius: var(--radius-md);
-  padding: 10px 18px;
-  font-weight: 600;
-  color: #fff !important;
-  transition: all .2s ease;
+.card-header {
+    background: transparent;
+    border-bottom: 1px solid var(--border-light);
+    font-weight: 600;
+    padding: 1.25rem 1.5rem;
 }
 
-button:hover,
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+body.dark .card-header {
+    border-bottom-color: var(--border-dark);
 }
 
-/* ================= FORM ================= */
-input,
-select,
-textarea {
-  border-radius: var(--radius-md) !important;
-  border: 1px solid #e5e7eb !important;
-  padding: 12px 14px;
+.card-body {
+    padding: 1.5rem;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-  border-color: var(--primary) !important;
-  box-shadow: 0 0 0 3px rgba(109,93,252,.2);
+/* ===== STATISTIC CARDS ===== */
+.stat-card {
+    background: var(--primary-gradient);
+    color: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.3);
 }
 
-/* ================= TABLE ================= */
-table {
-  border-collapse: separate;
-  border-spacing: 0 12px;
+.stat-card .stat-icon {
+    font-size: 2.5rem;
+    opacity: 0.3;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
 }
 
-table thead th {
-  border: none;
-  color: var(--text-muted);
-  font-weight: 700;
+.stat-card .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
 }
 
-table tbody tr {
-  background: #fff;
-  box-shadow: var(--shadow-sm);
-  border-radius: var(--radius-md);
+.stat-card .stat-label {
+    font-size: 0.875rem;
+    opacity: 0.8;
 }
 
-table tbody td {
-  border: none !important;
-  padding: 14px;
-}
-
-/* ================= PROGRESS ================= */
+/* ===== PROGRESS BAR ===== */
 .progress {
-  height: 8px;
-  border-radius: 999px;
+    background-color: #e5e7eb;
+    border-radius: 9999px;
+    height: 0.5rem;
+    overflow: hidden;
+}
+
+body.dark .progress {
+    background-color: #374151;
 }
 
 .progress-bar {
-  background: linear-gradient(90deg, var(--primary), var(--accent));
+    background: var(--primary-gradient);
+    border-radius: 9999px;
+    transition: width 0.3s;
 }
 
-/* ================= MODAL ================= */
-.modal-content {
-  border-radius: var(--radius-lg);
-  border: none;
-  box-shadow: var(--shadow-md);
+/* Progress dengan label */
+.progress-sm {
+    height: 0.375rem;
 }
 
-/* ================= FOOTER ================= */
-footer {
-  opacity: .6;
-   }
+.progress-lg {
+    height: 0.75rem;
+}
+
+/* ===== TABLES ===== */
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
+}
+
+.table thead th {
+    background: transparent;
+    color: #6b7280;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border-light);
+    padding: 0.75rem 1rem;
+}
+
+body.dark .table thead th {
+    color: #9ca3af;
+    border-bottom-color: var(--border-dark);
+}
+
+.table tbody tr {
+    background: var(--surface-light);
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+body.dark .table tbody tr {
+    background: var(--surface-dark);
+}
+
+.table tbody td {
+    padding: 1rem;
+    border: none;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+    border-radius: 0.5rem;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--border-light);
+    color: var(--text-light);
+}
+
+body.dark .btn-outline {
+    border-color: var(--border-dark);
+    color: var(--text-dark);
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* ===== BADGES ===== */
+.badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.badge-success {
+    background: #10b981;
+    color: white;
+}
+
+.badge-warning {
+    background: #f59e0b;
+    color: white;
+}
+
+.badge-danger {
+    background: #ef4444;
+    color: white;
+}
+
+.badge-info {
+    background: #3b82f6;
+    color: white;
+}
+
+/* ===== AVATAR GROUP ===== */
+.avatar-group {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    border: 2px solid var(--surface-light);
+    margin-left: -0.5rem;
+}
+
+body.dark .avatar {
+    border-color: var(--surface-dark);
+}
+
+.avatar:first-child {
+    margin-left: 0;
+}
+
+/* ===== DARK MODE TOGGLE ===== */
+.theme-toggle {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 9999px;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: white;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+body.dark .theme-toggle {
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-dark);
+}
+
+/* ===== GRID LAYOUT (untuk dashboard) ===== */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ===== PROJECT CARD (contoh) ===== */
+.project-card {
+    background: var(--surface-light);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+}
+
+body.dark .project-card {
+    background: var(--surface-dark);
+}
+
+.project-card .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.project-card .project-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.project-card .project-priority {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+}
+
+.project-card .priority-high {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+body.dark .project-card .priority-high {
+    background: #7f1d1d;
+    color: #fca5a5;
+}
+
+.project-card .priority-medium {
+    background: #fef3c7;
+    color: #f59e0b;
+}
+
+body.dark .project-card .priority-medium {
+    background: #78350f;
+    color: #fcd34d;
+}
+
+.project-card .progress-section {
+    margin-top: 1rem;
+}
+
+.project-card .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+      }
