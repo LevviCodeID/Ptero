@@ -1,160 +1,171 @@
-/* ======================================================
-   ANDROMEDA THEME – FULL OVERRIDE
-   Dev  : LevviCode
-   Tele : https://t.me/lepicode
-====================================================== */
-
 :root {
-  --primary: #6366f1;
-  --secondary: #8b5cf6;
-  --accent: #22d3ee;
+  --primary: #6d5dfc;
+  --primary-dark: #5b4ae6;
+  --accent: #a29bfe;
 
-  --bg-main: #020617;
-  --bg-panel: #0b1020;
-  --bg-glass: rgba(15, 23, 42, 0.75);
+  --bg-main: #f4f6fb;
+  --bg-card: #ffffff;
+  --bg-sidebar: #0b1020;
+  --bg-sidebar-hover: rgba(109,93,252,.18);
 
-  --text-main: #e5e7eb;
-  --text-muted: #9ca3af;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --text-sidebar: #c7d2fe;
 
-  --border: rgba(255,255,255,.08);
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+
+  --shadow-sm: 0 6px 16px rgba(0,0,0,.08);
+  --shadow-md: 0 14px 40px rgba(0,0,0,.12);
 }
 
-html, body {
-  background: radial-gradient(circle at top, #111827, #020617) !important;
-  color: var(--text-main) !important;
+/* RESET */
+body {
+  background: var(--bg-main) !important;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-main);
 }
 
-/* ===== NAVBAR ===== */
-
-nav, header, .navbar {
-  background: var(--bg-glass) !important;
-  backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--border);
-}
-
-/* ===== SIDEBAR ===== */
-
-aside, .sidebar {
-  background: linear-gradient(180deg,#020617,#0b1020) !important;
-  border-right: 1px solid var(--border);
-}
-
-/* ===== CARDS / PANELS ===== */
-
-.card, .box, .panel, .content-box, .well {
-  background: var(--bg-panel) !important;
-  border-radius: 18px !important;
-  border: 1px solid var(--border);
-  box-shadow: 0 20px 40px rgba(0,0,0,.45);
-}
-
-/* ===== TABLE ===== */
-
-table {
-  background: var(--bg-panel) !important;
-  border-radius: 14px;
-  overflow: hidden;
-}
-
-thead {
-  background: #020617 !important;
-}
-
-tbody tr:hover {
-  background: rgba(99,102,241,.08) !important;
-}
-
-/* ===== FORM ===== */
-
-input, select, textarea {
-  background: #020617 !important;
-  color: var(--text-main) !important;
-  border-radius: 12px !important;
-  border: 1px solid var(--border) !important;
-}
-
-input:focus, select:focus, textarea:focus {
-  border-color: var(--primary) !important;
-  box-shadow: 0 0 0 2px rgba(99,102,241,.3);
-}
-
-/* ===== BUTTON ===== */
-
-button, .btn, .button {
-  background: linear-gradient(135deg,var(--primary),var(--secondary)) !important;
-  color: #fff !important;
-  border-radius: 9999px !important;
+/* ================= HEADER ================= */
+nav.navbar,
+.header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
   border: none !important;
-  padding: .6rem 1.4rem;
+  min-height: 78px;
+  box-shadow: var(--shadow-md);
+}
+
+nav.navbar * {
+  color: #fff !important;
   font-weight: 600;
-  transition: .25s;
-  box-shadow: 0 15px 35px rgba(99,102,241,.45);
 }
 
-button:hover, .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 25px 55px rgba(139,92,246,.55);
+/* ================= SIDEBAR ================= */
+.sidebar {
+  background: var(--bg-sidebar) !important;
+  border-right: none;
 }
 
-/* ===== DROPDOWN / MODAL ===== */
-
-.dropdown-menu, .modal-content {
-  background: var(--bg-panel) !important;
-  border-radius: 16px;
-  border: 1px solid var(--border);
+.sidebar a {
+  color: var(--text-sidebar) !important;
+  margin: 6px 10px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  transition: all .2s ease;
 }
 
-/* ===== TEXT ===== */
-
-.text-muted {
-  color: var(--text-muted) !important;
+.sidebar a:hover,
+.sidebar a.active {
+  background: var(--bg-sidebar-hover) !important;
+  color: #fff !important;
+  transform: translateX(4px);
 }
 
-/* ===== PROGRESS ===== */
+/* ================= PAGE TITLE ================= */
+.page-title,
+h1.page-title {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
 
+/* ================= CARD ================= */
+.card,
+.box,
+.panel {
+  background: var(--bg-card) !important;
+  border-radius: var(--radius-lg);
+  border: none !important;
+  box-shadow: var(--shadow-sm);
+  padding: 20px;
+}
+
+/* STAT CARD */
+.card h2,
+.card h3 {
+  font-weight: 800;
+}
+
+.card small {
+  color: var(--text-muted);
+}
+
+/* ================= BUTTON ================= */
+button,
+.btn {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
+  border: none !important;
+  border-radius: var(--radius-md);
+  padding: 10px 18px;
+  font-weight: 600;
+  color: #fff !important;
+  transition: all .2s ease;
+}
+
+button:hover,
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ================= FORM ================= */
+input,
+select,
+textarea {
+  border-radius: var(--radius-md) !important;
+  border: 1px solid #e5e7eb !important;
+  padding: 12px 14px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(109,93,252,.2);
+}
+
+/* ================= TABLE ================= */
+table {
+  border-collapse: separate;
+  border-spacing: 0 12px;
+}
+
+table thead th {
+  border: none;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+table tbody tr {
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-md);
+}
+
+table tbody td {
+  border: none !important;
+  padding: 14px;
+}
+
+/* ================= PROGRESS ================= */
 .progress {
-  background: #020617 !important;
+  height: 8px;
+  border-radius: 999px;
 }
 
 .progress-bar {
-  background: linear-gradient(90deg,var(--primary),var(--accent)) !important;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
 }
 
-/* ===== FLOAT TOGGLE ===== */
-
-.andromeda-toggle {
-  position: fixed;
-  right: 22px;
-  bottom: 22px;
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  background: linear-gradient(135deg,var(--primary),var(--secondary));
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 9999;
-  box-shadow: 0 20px 45px rgba(99,102,241,.55);
-  transition: .25s;
+/* ================= MODAL ================= */
+.modal-content {
+  border-radius: var(--radius-lg);
+  border: none;
+  box-shadow: var(--shadow-md);
 }
 
-.andromeda-toggle:hover {
-  transform: scale(1.12) rotate(12deg);
-}
-
-/* ===== SCROLLBAR ===== */
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #020617;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg,var(--primary),var(--secondary));
-  border-radius: 9999px;
-}
+/* ================= FOOTER ================= */
+footer {
+  opacity: .6;
+   }
