@@ -1,26 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
-  document.body.classList.add("andromeda-active");
 
-  document.querySelectorAll(
-    "button,.btn,.button"
-  ).forEach(b => b.classList.add("andromeda-btn"));
+  document.querySelectorAll(".card, .panel, table tbody tr").forEach(el => {
+    el.style.transition = "all .25s ease"
+    el.addEventListener("mouseenter", () => {
+      el.style.transform = "translateY(-4px)"
+      el.style.boxShadow = "0 20px 45px rgba(0,0,0,.15)"
+    })
+    el.addEventListener("mouseleave", () => {
+      el.style.transform = "none"
+      el.style.boxShadow = ""
+    })
+  })
 
-  if (!document.querySelector(".andromeda-toggle")) {
-    const t = document.createElement("div");
-    t.className = "andromeda-toggle";
-    t.innerHTML = "🌙";
-    document.body.appendChild(t);
-
-    t.onclick = () => {
-      document.body.classList.toggle("dark");
-      localStorage.setItem(
-        "andromeda-theme",
-        document.body.classList.contains("dark") ? "dark" : "light"
-      );
-    };
-  }
-
-  if (localStorage.getItem("andromeda-theme") === "dark") {
-    document.body.classList.add("dark");
-  }
-});
+})
